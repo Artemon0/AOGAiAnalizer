@@ -24,10 +24,9 @@ public class AiAnalyzerConfig : BasePluginConfig
 public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
 {
     public override string ModuleName { get; } = "AOGAiAnalizer";
-    public override string ModuleVersion { get; } = "0.1";
+    public override string ModuleVersion { get; } = "0.2";
     public required AiAnalyzerConfig Config { get; set; }
 
-    // private readonly Logger _logger = new LoggerConfiguration().CreateLogger();
 
     public void OnConfigParsed(AiAnalyzerConfig config)
     {
@@ -40,6 +39,13 @@ public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
     {
         if (!Config.Enabled)
             throw new Exception("AiAnalyzer is disabled.");
+
+        if (!CheckApiKeyAsync(Config).Result || string.IsNullOrWhiteSpace(Config.Model))
+        {
+            _logger.Fatal("API Key is invalid.");
+            throw new Exception("API Key is invalid.");
+        }
+
         _logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .WriteTo.Console(
@@ -53,7 +59,7 @@ public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
             .CreateLogger();
 
         _logger.Information("Plugin loaded. Version: {Version}", ModuleVersion);
-        
+
         RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath, HookMode.Post);
     }
 
@@ -102,7 +108,7 @@ public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
             try
             {
                 _logger.Information("Sending log for player: {string}\n", player.PlayerName);
-                string? response = await SendLogAsync(Config.APIKey, Config.Model, log, Config, [prompt]);
+                string? response = await SendLogAsync(Config, log, [prompt]);
                 if (!string.IsNullOrWhiteSpace(response))
                     player.PrintToChat($" {Config.Prefix} {response}");
             }
@@ -116,16 +122,14 @@ public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
     }
 
     private static async Task<bool> CheckApiKeyAsync(
-        string apiKey, string? model = "gemini-2.5-flash", AiAnalyzerConfig? cfg = null
+        AiAnalyzerConfig? cfg = null
     )
     {
-        if (string.IsNullOrWhiteSpace(apiKey) && cfg != null)
-            apiKey = cfg.APIKey;
-        else return false;
+        if (cfg == null) return false;
 
-        if (string.IsNullOrWhiteSpace(model))
-            model = cfg.Model;
-        else return false;
+        string apiKey = cfg.APIKey;
+        string model = cfg.Model;
+
 
         using HttpClient client = new();
 
@@ -136,21 +140,17 @@ public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
     }
 
     private static async Task<string?> SendLogAsync(
-        string apiKey, string model, string log, AiAnalyzerConfig cfg, string[]? args
+        AiAnalyzerConfig? cfg, string log, string[]? args
     )
     {
-        if (string.IsNullOrWhiteSpace(apiKey))
-            apiKey = cfg.APIKey;
+        if (cfg == null) return null;
 
-        if (string.IsNullOrWhiteSpace(model))
-            model = cfg.Model;
+        string apiKey = cfg.APIKey;
+        string model = cfg.Model;
 
         if (string.IsNullOrWhiteSpace(log))
             return null;
-        
-        if (!await CheckApiKeyAsync(apiKey, model))
-            return null;
-        
+
         Client client = new Client(apiKey: apiKey);
 
         if (args != null && args.Length != 0)
@@ -161,7 +161,7 @@ public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
             model: model,
             contents: log
         );
-        
+
         return response?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault()?.Text;
     }
 }
