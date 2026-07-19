@@ -4,13 +4,14 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
+using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Commands;
 using Google.GenAI;
 using Serilog;
 using Serilog.Core;
 
 
-namespace AOGAiAnalizer;
+namespace AOGAiAnalyzer;
 
 public class AiAnalyzerConfig : BasePluginConfig
 {
@@ -21,7 +22,7 @@ public class AiAnalyzerConfig : BasePluginConfig
     [JsonPropertyName("Language")] public string Language { get; set; } = "English";
 }
 
-public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
+public class AOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
 {
     public override string ModuleName { get; } = "AOGAiAnalizer";
     public override string ModuleVersion { get; } = "0.2";
@@ -60,9 +61,10 @@ public class CAOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
 
         _logger.Information("Plugin loaded. Version: {Version}", ModuleVersion);
 
-        RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath, HookMode.Post);
+        // RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath, HookMode.Post);
     }
 
+    [GameEventHandler]
     private HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo info)
     {
         CCSPlayerController? attacker = @event.Attacker;
