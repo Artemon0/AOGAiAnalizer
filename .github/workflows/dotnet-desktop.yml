@@ -20,13 +20,13 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore AOGAiAnalizer.sln
+      run: dotnet restore AOGAiAnalizer/AOGAiAnalizer.csproj
 
     - name: Build plugin (Debug)
-      run: dotnet build AOGAiAnalizer.sln --no-restore -c Debug
+      run: dotnet build AOGAiAnalizer/AOGAiAnalizer.csproj --no-restore -c Debug
 
     - name: Build plugin (Release)
-      run: dotnet build AOGAiAnalizer.sln --no-restore -c Release
+      run: dotnet build AOGAiAnalizer/AOGAiAnalizer.csproj --no-restore -c Release
 
     - name: Upload Debug artifact
       uses: actions/upload-artifact@v4
