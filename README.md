@@ -1,7 +1,5 @@
 # 🧠 AOGAiAnalizer
 
-**AI-powered CS2 death analyst** — плагин для CounterStrikeSharp, который анализирует каждую смерть игрока и даёт персонализированный фидбек в чат с помощью Google Gemini.
-
 [![GitHub stars](https://img.shields.io/github/stars/Artemon0/AOGAiAnalizer?style=for-the-badge&logo=github)](https://github.com/Artemon0/AOGAiAnalizer/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Artemon0/AOGAiAnalizer?style=for-the-badge&logo=github)](https://github.com/Artemon0/AOGAiAnalizer/network/members)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Artemon0/AOGAiAnalizer?style=for-the-badge&logo=github)](https://github.com/Artemon0/AOGAiAnalizer/commits/main)
