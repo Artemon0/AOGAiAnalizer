@@ -88,7 +88,7 @@ public class AOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
                      $" {assistedflash}, trough smoke: {thrusmoke}, noscope: {noscope}, attacker in air: {attackerInAir}" +
                      $", headshot: {headshot}, assisted player name (if assisted): {assisterPlayerName}, distance(float)" +
                      $": {distance}, dominated: {dominated}, penetrated: {penetrated}, damage: {damage}.\n" +
-                     $"===END OF ROUND LOG===";
+                     $"===END OF {player} DEATH LOG===";
 
         string prompt =
             "You are a professional CS2 coach, known for sharp analytical feedback with a touch of sarcasm (e.g., 'You're still far from a NAVI invite'). " +
