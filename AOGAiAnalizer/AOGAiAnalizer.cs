@@ -60,8 +60,6 @@ public class AOGAiAnalyzer : BasePlugin, IPluginConfig<AiAnalyzerConfig>
             .CreateLogger();
 
         _logger.Information("Plugin loaded. Version: {Version}", ModuleVersion);
-
-        // RegisterEventHandler<EventPlayerDeath>(OnPlayerDeath, HookMode.Post);
     }
 
     [GameEventHandler]
