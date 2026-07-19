@@ -137,7 +137,7 @@ This project is licensed under the MIT License — see the LICENSE file for deta
 💬 Connect with the Author
 
 [![Telegram](https://img.shields.io/badge/Telegram-@Artemon0000-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/Artemon0000)]
-https://img.shields.io/badge/GitHub-Artemon0-181717?style=for-the-badge&logo=github
+[![GitHub](https://img.shields.io/badge/GitHub-Artemon0-181717?style=for-the-badge&logo=github)](https://github.com/Artemon0)]
 
 ---
 
