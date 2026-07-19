@@ -13,8 +13,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
     - name: Setup .NET 8.0
       uses: actions/setup-dotnet@v4
@@ -22,13 +20,13 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore AOGAiAnalizer.slnx
+      run: dotnet restore AOGAiAnalizer.sln
 
     - name: Build plugin (Debug)
-      run: dotnet build AOGAiAnalizer.slnx --no-restore -c Debug
+      run: dotnet build AOGAiAnalizer.sln --no-restore -c Debug
 
     - name: Build plugin (Release)
-      run: dotnet build AOGAiAnalizer.slnx --no-restore -c Release
+      run: dotnet build AOGAiAnalizer.sln --no-restore -c Release
 
     - name: Upload Debug artifact
       uses: actions/upload-artifact@v4
