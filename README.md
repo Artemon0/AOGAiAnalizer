@@ -8,6 +8,7 @@
 [![CounterStrikeSharp](https://img.shields.io/badge/CounterStrikeSharp-important?style=flat-square&label=Framework)](https://github.com/roflmuffin/CounterStrikeSharp)
 [![Gemini](https://img.shields.io/badge/Gemini-4285F4?style=flat-square&logo=google&label=Powered%20by)](https://gemini.google.com/)
 [![Serilog](https://img.shields.io/badge/Serilog-important?style=flat-square&label=Logging)](https://serilog.net/)
+[![Build status](https://github.com/Artemon0/AOGAiAnalizer/actions/workflows/build.yml/badge.svg)](https://github.com/Artemon0/AOGAiAnalizer/actions)
 
 ---
 
