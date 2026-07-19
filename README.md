@@ -4,7 +4,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/Artemon0/AOGAiAnalizer?style=flat-square&logo=github&label=Forks)](https://github.com/Artemon0/AOGAiAnalizer/network/members)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Artemon0/AOGAiAnalizer?style=flat-square&logo=github&label=Last%20commit)](https://github.com/Artemon0/AOGAiAnalizer/commits/main)
 [![C#](https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&label=Language)](https://github.com/Artemon0/AOGAiAnalizer/search?l=c%23)
-
+[![License](https://img.shields.io/github/license/Artemon0/AOGAiAnalizer?style=flat-square&label=License)](https://github.com/Artemon0/AOGAiAnalizer/blob/main/LICENSE)
 [![CounterStrikeSharp](https://img.shields.io/badge/CounterStrikeSharp-important?style=flat-square&label=Framework)](https://github.com/roflmuffin/CounterStrikeSharp)
 [![Gemini](https://img.shields.io/badge/Gemini-4285F4?style=flat-square&logo=google&label=Powered%20by)](https://gemini.google.com/)
 [![Serilog](https://img.shields.io/badge/Serilog-important?style=flat-square&label=Logging)](https://serilog.net/)
