@@ -38,14 +38,15 @@ jobs:
           name: AOGAiAnalizer
           path: AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll
 
+          
       - name: Create GitHub Release
         if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $tag = "v0.2.${{ github.run_number }}"
-
-          gh release create $tag `
-            "AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll" `
-            --title "AOGAiAnalizer $tag" `
+          tag="v0.2.${{ github.run_number }}"
+      
+          gh release create "$tag" \
+            "AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll" \
+            --title "AOGAiAnalizer $tag" \
             --generate-notes
