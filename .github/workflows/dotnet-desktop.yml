@@ -2,40 +2,55 @@ name: Build CS2 Plugin
 
 on:
   push:
-    branches: [ "master", "main" ]
+    branches:
+      - "master"
+      - "main"
   pull_request:
-    branches: [ "master", "main" ]
+    branches:
+      - "master"
+      - "main"
 
 jobs:
   build:
     runs-on: windows-latest
-    
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-    - name: Restore dependencies
-      run: dotnet restore AOGAiAnalizer/AOGAiAnalizer.csproj
+      - name: Restore dependencies
+        run: dotnet restore AOGAiAnalizer/AOGAiAnalizer.csproj
 
-    - name: Build plugin (Debug)
-      run: dotnet build AOGAiAnalizer/AOGAiAnalizer.csproj --no-restore -c Debug
+      - name: Build plugin (Debug)
+        run: dotnet build AOGAiAnalizer/AOGAiAnalizer.csproj --no-restore -c Debug
 
-    - name: Build plugin (Release)
-      run: dotnet build AOGAiAnalizer/AOGAiAnalizer.csproj --no-restore -c Release
+      - name: Build plugin (Release)
+        run: dotnet build AOGAiAnalizer/AOGAiAnalizer.csproj --no-restore -c Release
 
-    - name: Upload Debug artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: AOGAiAnalizer-Debug
-        path: AOGAiAnalizer/bin/Debug/net8.0/AOGAiAnalizer.dll
+      - name: Upload Debug artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AOGAiAnalizer-Debug
+          path: AOGAiAnalizer/bin/Debug/net8.0/AOGAiAnalizer.dll
 
-    - name: Upload Release artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: AOGAiAnalizer-Release
-        path: AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll
+      - name: Upload Release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AOGAiAnalizer-Release
+          path: AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "v1.0.${{ github.run_number }}"
+          gh release create $tag `
+            AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll `
+            --title "AOGAiAnalizer $tag" `
+            --generate-notes
