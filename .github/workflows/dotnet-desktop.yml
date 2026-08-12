@@ -10,6 +10,9 @@ on:
       - "master"
       - "main"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -50,7 +53,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $tag = "v1.0.${{ github.run_number }}"
+
           gh release create $tag `
-            AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll `
+            "AOGAiAnalizer/bin/Release/net8.0/AOGAiAnalizer.dll" `
             --title "AOGAiAnalizer $tag" `
             --generate-notes
